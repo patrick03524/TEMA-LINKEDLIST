@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int val;
+    struct node *next;
+};
+void borrar(struct node *head, int key)
+{
+    struct node *cur, *prev, *temp;
+    prev = head;
+    cur = head -> next;
+    while (cur != NULL)
+    {
+        if (head ->val== key)
+        {
+            temp = head;
+            head = head -> next;
+            free(temp);
+            break;
+
+        }
+        else {
+            if (cur -> val == key)
+            {
+                prev -> next = cur -> next;
+                free(cur);
+                break;
+            }
+        }
+        prev = cur;
+        cur = cur -> next;
+
+
+    }
+}
+void crearList(struct node *head, int n)
+{
+    struct node *prev, *cur;
+    head -> val = 1;
+    int i;
+    prev = head;
+    for(i=2;i<= n;i++)
+    {
+        cur = malloc(sizeof(struct node));
+        cur ->val = i;
+        prev ->next = cur;
+        prev = cur;
+    }
+    prev -> next=NULL;
+
+}
+
+main()
+{
+    struct node *head;
+    head = malloc(sizeof(struct node));
+    head -> val = 1;
+    crearList(head,3); /*Crea la lista enlazada con Head */
+    struct node *t;
+    int key=3;
+    borrar(head,key);  /*Borra el elemento */
+    t=head;
+    while (t!=NULL)
+    {
+        printf("%d\n",t->val);
+        t = t -> next;
+    }
+
+}
